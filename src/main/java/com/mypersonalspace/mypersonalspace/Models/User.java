@@ -2,27 +2,28 @@ package com.mypersonalspace.mypersonalspace.Models;
 
 import java.util.List;
 
-import com.mypersonalspace.mypersonalspace.Models.Helpers.Task;
+import jakarta.persistence.*;
 
-public class User {
-
+@Entity
+@Table(name="users")
+public class User { 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int uid;
     private String name;
     private String email;
     private String password;
     private String age;
     private String typeOfMusic; // represents the type of music the user likes
     private List<String> favArtists; // would use this to store all the fav artists 
-    private List<Task> tasks; // would use this to store all the tasks of the user
 
-    public User(String name, String email, String password, String age, String typeOfMusic, List<String> favArtists,
-            List<Task> tasks) {
+    public User(String name, String email, String password, String age, String typeOfMusic, List<String> favArtists) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
         this.typeOfMusic = typeOfMusic;
         this.favArtists = favArtists;
-        this.tasks = tasks;
     }
 
 
@@ -73,15 +74,5 @@ public class User {
     public void setFavArtissts(List<String> favArtists) {
         this.favArtists = favArtists;
     }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-    
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    
-    
+  
 }

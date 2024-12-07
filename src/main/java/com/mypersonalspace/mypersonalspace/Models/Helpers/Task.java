@@ -1,7 +1,13 @@
 package com.mypersonalspace.mypersonalspace.Models.Helpers;
 
-public class Task {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="tasks")
+public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int uid;
     private int priority; // represents the priority of the task
     private String taskName;
     private String taskDescription;
