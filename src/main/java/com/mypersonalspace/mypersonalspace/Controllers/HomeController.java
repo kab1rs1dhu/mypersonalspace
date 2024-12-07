@@ -1,7 +1,7 @@
 package com.mypersonalspace.mypersonalspace.Controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
@@ -22,9 +22,14 @@ public class HomeController {
         return "/Login/Login.html";
     }
 
-    @GetMapping("/signin")
+    @GetMapping("/signup")
     public String goToSignin() {
-        return "/Login/Signin.html";
+        return "/Login/SignUp.html";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(){
+        return"";
     }
     
 }

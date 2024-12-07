@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Sign-Up</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #000000, #3b0066);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .signin-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signin-container::before, .signin-container::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: animate 5s linear infinite;
+        }
+
+        .signin-container::after {
+            animation-delay: 2.5s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input[type="submit"], .next-btn, .prev-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3b0066;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover, .next-btn:hover, .prev-btn:hover {
+            background: #5e0099;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <h2>Sign-up if you haven't already</h2>
+        <form id="signup-form">
+            <div class="form-step active">
+                <input type="text" placeholder="Name" required>
+                <input type="number" placeholder="Age" required>
+                <div class="btn-container">
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+            </div>
+            <div class="form-step">
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Favorite Artists" required>
+                <div class="btn-container">
+                    <button type="button" class="prev-btn">Previous</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+            </div>
+            <div class="form-step">
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <div class="btn-container">
+                    <button type="button" class="prev-btn">Previous</button>
+                    <input type="submit" value="Sign-In">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        const nextBtns = document.querySelectorAll('.next-btn');
+        const prevBtns = document.querySelectorAll('.prev-btn');
+        const formSteps = document.querySelectorAll('.form-step');
+        let formStepIndex = 0;
+
+        nextBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                formSteps[formStepIndex].classList.remove('active');
+                formStepIndex++;
+                formSteps[formStepIndex].classList.add('active');
+            });
+        });
+
+        prevBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                formSteps[formStepIndex].classList.remove('active');
+                formStepIndex--;
+                formSteps[formStepIndex].classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
