@@ -14,16 +14,14 @@ public class User {
     private String email;
     private String password;
     private String age;
-    private String typeOfMusic; // represents the type of music the user likes
-    private List<String> favArtists; // would use this to store all the fav artists 
+    private String username;
 
-    public User(String name, String email, String password, String age, String typeOfMusic, List<String> favArtists) {
+    public User(String name, String email, String password, String age, String username) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.age = age;
-        this.typeOfMusic = typeOfMusic;
-        this.favArtists = favArtists;
+        this.username = username;
     }
 
 
@@ -59,20 +57,14 @@ public class User {
         this.age = age;
     }
 
-    public String getTypeOfMusic() {
-        return typeOfMusic;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTypeOfMusic(String typeOfMusic) {
-        this.typeOfMusic = typeOfMusic;
+    public void setUsername(String username) {
+        this.username = username;
     }
+    
 
-    public List<String> getFavArtists() {
-        return favArtists;
-    }
-
-    public void setFavArtissts(List<String> favArtists) {
-        this.favArtists = favArtists;
-    }
   
 }
