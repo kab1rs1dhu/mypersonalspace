@@ -25,9 +25,24 @@ public class UserService{
         // then it will save the user to the database
     }
 
+    public User authenticateUser(String username, String password){
+        User user = userRepo.findByUsername(username);
+        if(user == null){
+            return null;
+        }
+        if(checkIfCorrectPassword(password, user.getPassword())){
+            return user;
+        }
+        return null;
+    }
+
     public boolean checkIfCorrectPassword(String rawPassword, String encodedPassword){
         System.out.println("rawPassword: " + rawPassword);
         System.out.println("encodedPassword: " + encodedPassword);
         return encoder.matches(rawPassword, encodedPassword);
+    }
+
+    public User findByUsername(String username){
+        return userRepo.findByUsername(username);
     }
 }

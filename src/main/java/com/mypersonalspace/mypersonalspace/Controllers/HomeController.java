@@ -16,20 +16,5 @@ public class HomeController {
     public String goToHome() {
         return "/Home/Home.html";
     }
-
-    @GetMapping("/login")
-    public String goToLogin() {
-        return "/Login/Login.html";
-    }
-
-    @GetMapping("/signup")
-    public String goToSignin() {
-        return "/Login/SignUp.html";
-    }
-
-    @PostMapping("/login")
-    public String loginUser(){
-        return"";
-    }
     
 }

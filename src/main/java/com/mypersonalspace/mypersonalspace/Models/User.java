@@ -16,6 +16,9 @@ public class User {
     private String age;
     private String username;
 
+    public User() {
+    }
+
     public User(String name, String email, String password, String age, String username) {
         this.name = name;
         this.email = email;
@@ -23,6 +26,10 @@ public class User {
         this.age = age;
         this.username = username;
     }
+
+    public int getUid() {
+        return uid;
+    }   
 
 
     public String getName() {

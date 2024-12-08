@@ -12,12 +12,18 @@ public class Task {
     private String taskName;
     private String taskDescription;
     private String taskDueDate;
+    private int userId; // would represent the user id of the user that created the task
 
-    public Task(int priority, String taskName, String taskDescription, String taskDueDate) {
+    public Task() {
+    }
+    
+
+    public Task(int priority, String taskName, String taskDescription, String taskDueDate, int userId) {
         this.priority = priority;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDueDate = taskDueDate;
+        this.userId = userId;
     }
 
     public int getPriority() {
@@ -50,6 +56,14 @@ public class Task {
 
     public void setTaskDueDate(String taskDueDate) {
         this.taskDueDate = taskDueDate;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
 
