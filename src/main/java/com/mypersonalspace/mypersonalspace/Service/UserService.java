@@ -5,13 +5,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mypersonalspace.mypersonalspace.Models.User;
-import com.mypersonalspace.mypersonalspace.Repositories.UserReposiroty;
+import com.mypersonalspace.mypersonalspace.Repositories.UserRepository;
 
 @Service
 public class UserService{
     
     @Autowired
-    private UserReposiroty userRepo;
+    private UserRepository userRepo;
 
     // here 12 is the strength of the encryption
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);

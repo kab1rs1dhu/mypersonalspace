@@ -1,7 +1,5 @@
 package com.mypersonalspace.mypersonalspace.Models;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 
 @Entity

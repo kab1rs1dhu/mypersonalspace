@@ -1,13 +1,187 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Home Page</title>
+    <title>My PersonalSpace</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #000000, #3b0066);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .welcome {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .tasks {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .tasks h3 {
+            color: #fff;
+            margin: 0 0 10px 0;
+        }
+
+        .tasks ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tasks ul li {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .add-task-btn {
+            background: #3b0066;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .add-task-btn:hover {
+            background: #5e0099;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #000;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3b0066;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #5e0099;
+        }
+    </style>
 </head>
 <body>
-
-<h1>Welcome to Home Page</h1>
-    
+    <div class="container">
+        <div class="welcome">
+            <h2>Welcome, <span th:text="${username}">User</span> to My PersonalSpace</h2>
+        </div>
+        <button class="add-task-btn" onclick="document.getElementById('addTaskModal').style.display='block'">Add Task</button>
+        <div class="tasks">
+            <h3>Your Tasks</h3>
+            <ul>
+                <li th:each="task : ${tasks}" th:text="${task.taskName}">Sample Task</li>
+            </ul>
+        </div>
+    </div>
+    <div id="addTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('addTaskModal').style.display='none'">&times;</span>
+            <h2>Add Task</h2>
+            <form action="/add-task" method="post" th:action="@{/add-task}">
+                <input type="hidden" name="username" th:value="${username}">
+                <input type="text" name="taskName" placeholder="Task Name" required>
+                <textarea name="taskDescription" placeholder="Task Description" required></textarea>
+                <input type="date" name="taskDueDate" placeholder="Due Date" required>
+                <select name="priority" required>
+                    <option value="" disabled selected>Select Priority</option>
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
+                <input type="submit" value="Add Task">
+            </form>
+        </div>
+    </div>
+    <script>
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById('addTaskModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
