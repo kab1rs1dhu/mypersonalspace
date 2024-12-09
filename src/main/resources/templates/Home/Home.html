@@ -17,12 +17,63 @@
             overflow: hidden;
         }
 
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .navbar h1 {
+            color: #fff;
+            margin: 0;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #5e0099;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -50px;
+            }
+            to {
+                top: 0;
+            }
+        }
+
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
+            margin-top: 60px; /* Adjust for navbar */
         }
 
         .welcome {
@@ -33,7 +84,7 @@
 
         .tasks {
             position: absolute;
-            top: 20px;
+            top: 80px;
             right: 20px;
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -41,11 +92,26 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             max-height: 300px;
             overflow-y: auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tasks.expanded {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            right: 10%;
+            overflow-y: scroll;
         }
 
         .tasks h3 {
             color: #fff;
             margin: 0 0 10px 0;
+            transition: color 0.3s ease;
+        }
+
+        .tasks h3:hover {
+            color: #5e0099;
         }
 
         .tasks ul {
@@ -57,6 +123,13 @@
         .tasks ul li {
             color: #fff;
             margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .tasks ul li span {
+            display: block;
+            font-size: 14px;
+            color: #ccc;
         }
 
         .add-task-btn {
@@ -68,7 +141,7 @@
             cursor: pointer;
             transition: background 0.3s ease;
             position: absolute;
-            top: 20px;
+            top: 80px;
             left: 20px;
         }
 
@@ -98,6 +171,7 @@
             width: 80%;
             max-width: 500px;
             border-radius: 10px;
+            animation: fadeIn 0.5s ease;
         }
 
         .close {
@@ -112,6 +186,15 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         input[type="text"], input[type="number"], input[type="date"], textarea, select {
@@ -143,15 +226,26 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <h1>My PersonalSpace</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </div>
     <div class="container">
         <div class="welcome">
             <h2>Welcome, <span th:text="${username}">User</span> to My PersonalSpace</h2>
         </div>
         <button class="add-task-btn" onclick="document.getElementById('addTaskModal').style.display='block'">Add Task</button>
-        <div class="tasks">
+        <div class="tasks" id="tasks" onclick="toggleTasks()">
             <h3>Your Tasks</h3>
             <ul>
-                <li th:each="task : ${tasks}" th:text="${task.taskName}">Sample Task</li>
+                <li th:each="task : ${tasks}">
+                    <span th:text="${task.taskName}">Sample Task</span>
+                    <span th:text="${task.taskDueDate}">Due Date</span>
+                </li>
             </ul>
         </div>
     </div>
@@ -181,6 +275,12 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
+
+        // Toggle the tasks section size
+        function toggleTasks() {
+            var tasks = document.getElementById('tasks');
+            tasks.classList.toggle('expanded');
         }
     </script>
 </body>
