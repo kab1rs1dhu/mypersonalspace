@@ -6,6 +6,7 @@ import com.mypersonalspace.mypersonalspace.Repositories.UserRepository;
 import com.mypersonalspace.mypersonalspace.Models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.Model.*;
@@ -50,4 +51,12 @@ public class TaskController {
         User user = userRepo.findByUsername(username);
         return user.getUid(); // Placeholder
     }
+
+    @DeleteMapping("/delete-task/{id}")
+    public void deleteTask(@PathVariable int uid) {
+        taskRepo.deleteById(uid);
+        System.out.println("Task deleted successfully!");
+    }
+
+
 }

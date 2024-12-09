@@ -245,6 +245,7 @@
                 <li th:each="task : ${tasks}">
                     <span th:text="${task.taskName}">Sample Task</span>
                     <span th:text="${task.taskDueDate}">Due Date</span>
+                    <button type="button" data-task-id="${task.uid}" onclick="deleteTask(this)">Done</button>
                 </li>
             </ul>
         </div>
@@ -282,6 +283,21 @@
             var tasks = document.getElementById('tasks');
             tasks.classList.toggle('expanded');
         }
+
+        function deleteTask(button) {
+            var taskId = button.getAttribute('data-task-id');
+            fetch('/delete-task/' + taskId, {
+                method: 'DELETE'
+            }).then(response => {
+                if (response.ok) {
+                    button.parentElement.remove();
+                } else {
+                    alert('Failed to delete task');
+                }
+            });
+        }
+
+        
     </script>
 </body>
 </html>
