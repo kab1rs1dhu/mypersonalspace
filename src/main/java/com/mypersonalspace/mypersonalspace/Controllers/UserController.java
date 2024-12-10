@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class UserController {
@@ -83,4 +86,14 @@ public class UserController {
         model.addAttribute("username", username);
         return "/Home/Home.html"; // Ensure this matches the template name
     }
+
+    @PostMapping("/logout")
+    public String logoutUser(HttpSession session) {
+
+        session.removeAttribute("username");
+        session.invalidate();
+        
+        return "redirect:/login"; // Redirect to login after logout
+    }
+    
 }

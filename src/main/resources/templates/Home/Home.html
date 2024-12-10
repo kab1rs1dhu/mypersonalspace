@@ -74,6 +74,8 @@
             padding: 20px;
             text-align: center;
             margin-top: 60px; /* Adjust for navbar */
+            display: flex;
+            justify-content: space-between;
         }
 
         .welcome {
@@ -83,25 +85,17 @@
         }
 
         .tasks {
-            position: absolute;
+            position: fixed;
             top: 80px;
             right: 20px;
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            max-height: 300px;
+            max-height: 80vh;
             overflow-y: auto;
             transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .tasks.expanded {
-            width: 80%;
-            height: 80%;
-            top: 10%;
-            right: 10%;
-            overflow-y: scroll;
+            width: 20%;
         }
 
         .tasks h3 {
@@ -123,7 +117,7 @@
         .tasks ul li {
             color: #fff;
             margin-bottom: 10px;
-            font-size: 18px;
+            font-size: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -131,7 +125,7 @@
 
         .tasks ul li span {
             display: block;
-            font-size: 14px;
+            font-size: 16px;
             color: #ccc;
         }
 
@@ -249,6 +243,7 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </div>
     <div class="container">
@@ -256,7 +251,7 @@
             <h2>Welcome, <span th:text="${username}">User</span> to My PersonalSpace</h2>
         </div>
         <button class="add-task-btn" onclick="document.getElementById('addTaskModal').style.display='block'">Add Task</button>
-        <div class="tasks" id="tasks" onclick="toggleTasks()">
+        <div class="tasks" id="tasks">
             <h3>Your Tasks</h3>
             <ul>
                 <li th:each="task : ${tasks}">
@@ -264,7 +259,8 @@
                         <span th:text="${task.taskName}">Sample Task</span>
                         <span th:text="${task.taskDueDate}">Due Date</span>
                     </span>
-                    <form th:action="@{'/delete/task/' + ${task.uid}}" method="post">
+                    <form th:action="@{/delete-task/{id}(id=${task.uid})}" method="post">
+                        <input type="hidden" name="_method" value="delete">
                         <button type="submit">Done</button>
                     </form>
                 </li>
