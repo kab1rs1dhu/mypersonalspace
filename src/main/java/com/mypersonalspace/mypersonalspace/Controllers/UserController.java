@@ -29,7 +29,7 @@ public class UserController {
     private UserRepository userRepo;
 
     @PostMapping("/user-signup")
-    public String saveUser(@RequestParam Map<String, String> newUser, Model model) {
+    public String saveUser(@RequestParam Map<String, String> newUser, Model model, HttpSession session) {
         String name = newUser.get("name");
         String email = newUser.get("email");
         String password = newUser.get("password");
@@ -40,10 +40,12 @@ public class UserController {
 
         userService.registerUserToDB(user);
 
+        session.setAttribute("username", username);
+
         List<Task> tasks = taskRepo.findByUserId(user.getUid()); // gets all the tasks of the user
 
         model.addAttribute("tasks", tasks);
-        return "home"; // Ensure this matches the template name
+        return "redirect:/home";
     }
 
     @GetMapping("/login")
