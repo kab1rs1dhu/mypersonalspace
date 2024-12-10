@@ -124,12 +124,29 @@
             color: #fff;
             margin-bottom: 10px;
             font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .tasks ul li span {
             display: block;
             font-size: 14px;
             color: #ccc;
+        }
+
+        .tasks ul li button {
+            background: #3b0066;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .tasks ul li button:hover {
+            background: #5e0099;
         }
 
         .add-task-btn {
@@ -243,9 +260,13 @@
             <h3>Your Tasks</h3>
             <ul>
                 <li th:each="task : ${tasks}">
-                    <span th:text="${task.taskName}">Sample Task</span>
-                    <span th:text="${task.taskDueDate}">Due Date</span>
-                    <button type="button" data-task-id="${task.uid}" onclick="deleteTask(this)">Done</button>
+                    <span>
+                        <span th:text="${task.taskName}">Sample Task</span>
+                        <span th:text="${task.taskDueDate}">Due Date</span>
+                    </span>
+                    <form th:action="@{'/delete/task/' + ${task.uid}}" method="post">
+                        <button type="submit">Done</button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -283,21 +304,6 @@
             var tasks = document.getElementById('tasks');
             tasks.classList.toggle('expanded');
         }
-
-        function deleteTask(button) {
-            var taskId = button.getAttribute('data-task-id');
-            fetch('/delete-task/' + taskId, {
-                method: 'DELETE'
-            }).then(response => {
-                if (response.ok) {
-                    button.parentElement.remove();
-                } else {
-                    alert('Failed to delete task');
-                }
-            });
-        }
-
-        
     </script>
 </body>
 </html>

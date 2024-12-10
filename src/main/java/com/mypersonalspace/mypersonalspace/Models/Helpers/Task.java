@@ -16,7 +16,7 @@ public class Task {
 
     public Task() {
     }
-    
+
 
     public Task(int priority, String taskName, String taskDescription, String taskDueDate, int userId) {
         this.priority = priority;
@@ -64,6 +64,10 @@ public class Task {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getUid() {
+        return uid;
     }
 
 

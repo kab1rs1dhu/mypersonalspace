@@ -61,6 +61,7 @@ public class UserController {
         User user = userService.authenticateUser(username, password);
         if (user != null) {
             session.setAttribute("username", username);
+            System.out.println("session username: " + session.getAttribute("username"));
             return "redirect:/home"; // Redirect to /home after successful login
         } else {
             model.addAttribute("error", "Invalid username or password");

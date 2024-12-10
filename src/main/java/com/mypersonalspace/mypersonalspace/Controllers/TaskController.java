@@ -3,6 +3,9 @@ package com.mypersonalspace.mypersonalspace.Controllers;
 import com.mypersonalspace.mypersonalspace.Models.Helpers.Task;
 import com.mypersonalspace.mypersonalspace.Repositories.TaskRepository;
 import com.mypersonalspace.mypersonalspace.Repositories.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.mypersonalspace.mypersonalspace.Models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +55,15 @@ public class TaskController {
         return user.getUid(); // Placeholder
     }
 
-    @DeleteMapping("/delete-task/{id}")
-    public void deleteTask(@PathVariable int uid) {
-        taskRepo.deleteById(uid);
-        System.out.println("Task deleted successfully!");
+
+    @PostMapping("/delete/task/{id}")
+    public String deleteTask(@PathVariable int id, Model model, HttpSession session) {
+        taskRepo.deleteById(id);
+        String username = (String) session.getAttribute("username");
+        User user = userRepo.findByUsername(username);
+        model.addAttribute("tasks", taskRepo.findByUserId(user.getUid()));
+        model.addAttribute("username", username);
+        return "/Home/Home.html"; // Return the view name
     }
 
 
